@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { CustomButton, JobCard, JobTypes, Loading, TextInput } from "../components";
 import { jobs } from "../utils/data";
@@ -52,6 +52,25 @@ const UploadJob = () => {
        }
        
   };
+
+  const getRecentPost = async() =>{
+    try{
+      const id = user._id;
+
+      const res = await apiRequest({
+        url: "/companies/get-company/" +id,
+        method: "GET",
+      });
+
+      setRecentPost(res?.data?.jobPosts);
+    }catch (error){
+      console.log(error);
+    }
+  };
+  
+  useEffect(() => {
+    getRecentPost();
+   }, []);
 
   return (
     <div className='container mx-auto flex flex-col md:flex-row gap-8 2xl:gap-14 bg-[#f7fdfd] px-5'>
@@ -187,8 +206,14 @@ const UploadJob = () => {
         <p className='text-gray-500 font-semibold'>Recent Job Post</p>
 
         <div className='w-full flex flex-wrap gap-6'>
-          {jobs.slice(0, 4).map((job, index) => {
-            return <JobCard job={job} key={index} />;
+          {recentPost.slice(0, 4).map((job, index) => {
+            const data = {
+              name: user?.name,
+              email: user?.email,
+              logo: user?.profileUrl,
+              ...job,
+            }; 
+            return <JobCard job={data} key={index} />;
           })}
         </div>
       </div>
