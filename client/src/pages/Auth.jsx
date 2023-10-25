@@ -9,8 +9,7 @@ const Auth = () => {
   const [open, setOpen] = useState(true);
   const location = useLocation();
 
-  /*const[isRegister,setIsRegister] = useState(false);
-  const[accountType, setAccountType] = useState(false)*/
+
 
   let from = location?.state?.from?.pathname || "/";
 
