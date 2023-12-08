@@ -48,7 +48,6 @@ export const createJob = async (req, res, next) => {
 
     console.log("new job : ",req.body)
 
-    console.log("fdfdfdfd");
     const job = new Jobs(jobPost);
     await job.save();
 
@@ -142,12 +141,13 @@ export const getJobPosts = async (req, res, next) => {
       queryObject.jobType = { $in: types };
     }
 
+    
     //    [2. 6]
 
     if (exp) {
       queryObject.experience = {
-        $gte: Number(experience[0]) - 1,
-        $lte: Number(experience[1]) + 1,
+        $gte: Number(experience[0])-1,
+        $lte: Number(experience[1])+1,
       };
     }
 
