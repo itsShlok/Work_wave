@@ -5,7 +5,7 @@ import { response } from "express";
 export const register = async (req, res, next) => {
   const { name, email, password } = req.body;
 
-  //validate fields
+  
   if (!name) {
     next("Company Name is required!");
     return;
