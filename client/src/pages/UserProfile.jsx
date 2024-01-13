@@ -27,7 +27,8 @@ const UserForm = ({ open, setOpen }) => {
   const [uploadCv, setUploadCv] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data,e) => {
+    e.preventDefault();
     setIsSubmitting(true);
     try {
       const uri = profileImage && (await handleFileUpload(profileImage));
